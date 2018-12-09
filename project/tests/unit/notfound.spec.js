@@ -1,11 +1,9 @@
 import Vue from "vue";
-import {
-  mount
-} from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import NotFound from '@/views/NotFound.vue';
+import { mount } from "@vue/test-utils";
+import Vuetify from "vuetify";
+import NotFound from "@/views/NotFound.vue";
 
-describe('NotFound.vue', function () {
+describe("NotFound.vue", function() {
   let wrp;
 
   beforeEach(() => {

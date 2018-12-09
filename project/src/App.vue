@@ -11,12 +11,16 @@
     >
       <v-list>
         <v-list-tile
+          ripple
           value="true"
           v-for="(item, i) in items"
           :key="i"
+          v-on="{ click: item.action || noop }"
+          :to="item.action ? null : item.to || null"
+          v-show="!item.authRequired || authenticated"
         >
           <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
+            <v-icon color="primary" v-html="item.icon"></v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
@@ -32,17 +36,8 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>web</v-icon>
-      </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -64,12 +59,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2019</span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "App",
   data() {
@@ -79,15 +76,44 @@ export default {
       fixed: false,
       items: [
         {
-          icon: "bubble_chart",
-          title: "Inspire"
+          icon: "home",
+          title: "Home",
+          to: "/",
+          authRequired: false
+        },
+        {
+          icon: "account_circle",
+          title: "Profile",
+          to: "/profile",
+          authRequired: true
+        },
+        {
+          icon: "info",
+          title: "About",
+          to: "/about",
+          authRequired: false
+        },
+        {
+          icon: "exit_to_app",
+          title: "Logout",
+          action: () => this.$store.dispatch("User/logout"),
+          authRequired: true
         }
       ],
       miniVariant: false,
-      right: true,
+      right: false,
       rightDrawer: false,
-      title: "Vuetify.js"
+      title: "House"
     };
+  },
+  mounted() {
+    this.$store.dispatch("User/authenticateWithCookie");
+  },
+  computed: mapState("User", {
+    authenticated: "authenticated"
+  }),
+  methods: {
+    noop() {}
   }
 };
 </script>
