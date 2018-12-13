@@ -17,7 +17,6 @@ Vue.use(VueTimeago, {
   }
 });
 
-
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
@@ -47,9 +46,7 @@ store.watch(
   isAuthenticated => {
     let currentQuery = router.history.current.query;
     if (isAuthenticated) {
-      router.push(
-        (currentQuery && currentQuery.redirect) || { name: "home" }
-      );
+      router.push((currentQuery && currentQuery.redirect) || { name: "home" });
     } else {
       router.push({
         name: "auth",
