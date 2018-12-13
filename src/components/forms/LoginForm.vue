@@ -39,11 +39,11 @@ export default {
   }),
   methods: {
     ...mapActions("User/Forms/Login", ["authenticate", "resetPasswordErrors"]),
-    passwordRules (v) {
+    passwordRules(v) {
       this.resetPasswordErrors();
       return !!v || "Password is required";
     },
-    login () {
+    login() {
       let data = { password: this.password, username: this.email };
       if (this.$route.params.confirmToken) {
         data.confirm_token = this.$route.params.confirmToken;
