@@ -5,7 +5,7 @@ const startLoading = state => (state.loading = true);
 const endLoading = state => (state.loading = false);
 const clearErrors = state => (state.errors = {});
 const setErrors = (state, errors) => Vue.set(state, "errors", errors || {});
-const resetPasswordError = (state) => state.errors.password = [];
+const resetPasswordError = state => (state.errors.password = []);
 
 export default {
   [types.START_LOADING]: startLoading,
