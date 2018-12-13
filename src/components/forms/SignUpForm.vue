@@ -8,7 +8,7 @@
     <v-form v-model="valid" @keyup.native.enter="valid && signup()">
       <v-text-field
         v-model="email"
-        :rules="emailRules"
+        :rules="[resetEmailErrorsRule, ...emailRules]"
         :error-messages="errors.email"
         label="E-mail"
         required
@@ -60,9 +60,14 @@ export default {
   methods: {
     ...mapActions("User/Forms/SignUp", [
       "signUp",
+      "resetEmailErrors",
       "resetPasswordErrors",
       "setErrorPasswordsMatch"
     ]),
+    resetEmailErrorsRule(v) {
+      this.resetEmailErrors();
+      return true;
+    },
     confirmRules(v) {
       return v === this.password || "Password does not match";
     },
