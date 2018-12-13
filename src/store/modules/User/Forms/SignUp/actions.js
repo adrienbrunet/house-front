@@ -4,6 +4,9 @@ import types from "./types";
 const resetPasswordErrors = ({ commit }) =>
   commit(types.RESET_FIELD_ERRORS, "password");
 
+const resetEmailErrors = ({ commit }) =>
+  commit(types.RESET_FIELD_ERRORS, "email");
+
 const setErrorPasswordsMatch = ({ commit }) =>
   commit(types.SET_PASSWORD_MATCH_ERRORS);
 
@@ -26,6 +29,7 @@ const signUp = ({ commit, dispatch }, payload) => {
 };
 
 export default {
+  resetEmailErrors,
   resetPasswordErrors,
   setErrorPasswordsMatch,
   signUp
