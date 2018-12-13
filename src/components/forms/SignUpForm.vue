@@ -64,7 +64,7 @@ export default {
       "resetPasswordErrors",
       "setErrorPasswordsMatch"
     ]),
-    resetEmailErrorsRule(v) {
+    resetEmailErrorsRule() {
       this.resetEmailErrors();
       return true;
     },
