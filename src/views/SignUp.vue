@@ -8,7 +8,7 @@
       :top="true"
       color="success"
     >
-      We sent you an email to confirm your account. Chech your emails.
+      We sent you an email to confirm your account. Check your emails.
       <v-btn
         flat
         @click="toggleSnackBarSignUp"
